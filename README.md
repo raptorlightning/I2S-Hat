@@ -1,5 +1,5 @@
 # I2SHat
-An SPDIF<->I2S Hat for the Raspberry Pi 2-X for SPDIF Communication
+An SPDIF<->I2S Hat for the Raspberry Pi 2, 3, 4, etc. that uses the same GPIO pinout.
 
 ## Overview
 This project was developed as a replacement or substitue for the various DSP MCU-based processors available on the market. The goals of the project were:
