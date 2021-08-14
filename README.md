@@ -76,18 +76,24 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
           dtparam=i2s=on
           cmdline=cmdline.txt ```        
   6. Headers for YML files for CamillaDSP include the following since the required DTOverlay is installed:
-    * ```
+    * ```---
+      #You may need to specify chunksize (1024) and target_level (512). See default files and CamillaDSP documentation.
+      
       devices:
-      type: Alsa
-      channels: 2
-      device: "hw:CARD=GenericStereoAu,DEV=1"
-      format: S32LE
-      playback:
-      type: Alsa
-      channels: 2
-      device: "hw:CARD=GenericStereoAu,DEV=0"
-      format: S32LE```
-      You may need to specify chunksize (1024) and target_level (512). See default files and CamillaDSP documentation.
+        samplerate: 44100
+        chunksize: 1024
+        target_level: 512
+        capture:
+          type: Alsa
+          channels: 2
+          device: "hw:CARD=GenericStereoAu,DEV=1"
+          format: S32LE
+        playback:
+          type: Alsa
+          channels: 2
+          device: "hw:CARD=GenericStereoAu,DEV=0"
+          format: S32LE```
+    
   7. Set up a Samba share for the /etc/camilladsp directory if you want to remotely access it for uploading new configurations.
 
 ## Notes and Addendum
