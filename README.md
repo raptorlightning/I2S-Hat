@@ -78,7 +78,7 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
           dtparam=i2s=on
           cmdline=cmdline.txt ```
           
-* Headers for YML files for CamillaDSP include the following since the required DTOverlay is installed:
+* Headers for YML files for CamillaDSP include the following since the required DTOverlay is installed (obviously samplerate is file-dependent):
     * ```---
       #You may need to specify chunksize (1024) and target_level (512). See default files and CamillaDSP documentation.
       
