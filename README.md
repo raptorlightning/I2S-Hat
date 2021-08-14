@@ -39,7 +39,7 @@ On the software side of things, the Raspberry Pi must be responsible for receivi
 
 The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry Pi Model 4B. Modifications are posted below:
 * Install the required I<sup>2</sup>S Slave DTOverlay at https://github.com/AkiyukiOkayasu/RaspberryPi_I2S_Slave
-* Setup CamillaDSP to run as a service on boot through the Python script in the repostiory. There are many different ways to accomplish this, but how it has been tested is through the following (sudo assumed):
+* Set up CamillaDSP to run as a service on boot through the Python script in the repostiory. There are many different ways to accomplish this, but how it has been tested is through the following (sudo assumed):
   1. Setup WiFi and SSH. I won't illustrate that here as there are many guides available online for it.
   2. Copy the CamillaDSP executable (appropriate to your arch (for RPi4B and Ubuntu Server, it should be aarch64)), startdsp.py, and all of your frequency-specific YML files to a created /etc/camilladsp/ directory.
   3. Create a file in the /etc/systemd/system directory called camilladsp.service that contains the following code:
@@ -63,7 +63,7 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
       WantedBy=multi-user.target```
     * This ensures that the process (and hopefully subprocess of CamillaDSP) runs without any interruption due to other system services. The point of installing Ubuuntu server is that you will have very few, if any, processes running in the background. All CPU should be dedicated to the DSP.
   4. In the /etc/systemd/system/multi-user.target.wants directory create a symlink using "ln" camilladsp.service to /etc/systemd/system/camilladsp.service to create a link for the target.
-  5. Modify the following in the /boot/firmware directory to enable I<sup>2</sup>S and disable onboard audio (unless you need it).
+* Modify the following in the /boot/firmware directory to enable I<sup>2</sup>S and disable onboard audio (unless you need it).
     * /boot/firmware/syscfg.txt
       *  ```
           \# This file is intended to be modified by the pibootctl utility. User
@@ -76,8 +76,9 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
           \#dtparam=i2c_arm=on
           \#dtparam=spi=on
           dtparam=i2s=on
-          cmdline=cmdline.txt ```        
-  6. Headers for YML files for CamillaDSP include the following since the required DTOverlay is installed:
+          cmdline=cmdline.txt ```
+          
+* Headers for YML files for CamillaDSP include the following since the required DTOverlay is installed:
     * ```---
       #You may need to specify chunksize (1024) and target_level (512). See default files and CamillaDSP documentation.
       
@@ -96,7 +97,7 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
           device: "hw:CARD=GenericStereoAu,DEV=0"
           format: S32LE```
     
-  7. Set up a Samba share for the /etc/camilladsp directory if you want to remotely access it for uploading new configurations.
+* Set up a Samba share for the /etc/camilladsp directory if you want to remotely access it for uploading new configurations.
 
 ## Notes and Addendum
 Please play around with the files and let me know if you have any better ideas! At heart, I'm a hardware guy, I make the software to work for what I need but don't go beyond. If you have a better solution for the software or find any holes in my instructions, please reach out. I would like to make this as straightforward as possible for anyone to use.
