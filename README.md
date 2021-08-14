@@ -6,6 +6,7 @@ This project was developed as a replacement or substitute for the various DSP MC
 * Leverage the ever-increasing processing power of the Raspberry Pi platform through CamillaDSP https://github.com/HEnquist/camilladsp for DSP, decoupling the number of filters and processing capability from the available MCU-based solutions.
 * Allow digital input and output without resampling or other pre/post-processing.
 * Utilize SPDIF from 44.1kHz-192kHz Stereo coaxial and/or optical.
+* Automatic detection of the input sample rate and reconfiguration of the digital filters based on the sample rate found.
 
 To make this possible, a combination of software and hardware is required. The schematics and PCB to create the SPDIF hat are provided in KiCAD format in the "I2SHat" folder. Please modify the schematic and PCB as required for component availibility.
 
