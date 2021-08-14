@@ -2,7 +2,7 @@
 An SPDIF Hat for the Raspberry Pi 2-X for SPDIF Communication
 
 ## Overview
-This project was developed as a replacement or substitue for the various DSP MCU-based processors avaialable on the market. The goals of the project were:
+This project was developed as a replacement or substitue for the various DSP MCU-based processors available on the market. The goals of the project were:
 * Leverage the ever-increasing processing power of the Raspberry-Pi platform through CamillaDSP https://github.com/HEnquist/camilladsp for DSP, decoupling the number of filters and processing capability from the available MCU-based solutions.
 * Allow digital input and output without resampling or other pre/post-processing.
 * Utilize SPDIF from 44.1kHz-192kHz Stereo coaxial and/or optical.
