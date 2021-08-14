@@ -1,5 +1,0 @@
-(sym_lib_table
-  (lib (name NC7SU04M5X)(type Legacy)(uri C:/Users/Falco/Dropbox/Projects/Audio/RPiDSP/I2SHat/NC7SU04M5X/NC7SU04M5X.lib)(options "")(descr ""))
-  (lib (name NC7SZ157P6X)(type Legacy)(uri C:/Users/Falco/Dropbox/Projects/Audio/RPiDSP/I2SHat/NC7SZ157P6X/NC7SZ157P6X.lib)(options "")(descr ""))
-  (lib (name SS1P3L)(type Legacy)(uri C:/Users/Falco/Dropbox/Projects/Audio/RPiDSP/I2SHat/SS1P3L/SS1P3L.lib)(options "")(descr ""))
-)
