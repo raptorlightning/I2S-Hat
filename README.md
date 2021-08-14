@@ -9,6 +9,7 @@ This project was developed as a replacement or substitue for the various DSP MCU
 
 To make this possible, a combination of software and hardware is required. The Schematics and PCB to create the SPDIF hat are provided in KiCAD format in the "I2SHat" folder. Please modify the schematic and PCB as required for component availibility.
 
+![](https://github.com/raptorlightning/I2SHat/blob/main/Pictures/Enclosed.jpg)
 
 ## Hardware Information
 For the PCB, general board rules for sensitive traces should be adhered to as seen in the original design. Extra grounding pads are provided around the SPDIF receiver (WM8804) if physical shielding is needed for nearby EMI components. This has not been a problem with my own testing on a Raspberry Pi 4 Model B above the input buck converter. 
@@ -24,6 +25,9 @@ The SPDIF input and output are tested as shown to work up to 192kHz. Substitutin
 The footprints provided for TOSLINK are for the TORX142L and TOTX142L, available currently as the Ali-sourced DLR2180 and DLT2180. Unfortunately the market for US/EU TOSLINK receivers at 25mbps bandwidth is largely dead, and the only source is Aixin. Everlight and Toshiba both no longer produce these modules. If you are sourcing from Aixin, ensure that you order a 25mbps module (DLx2xxx) to guarantee 192kHz operation (192*32(Bits/channel)*2(Channels)*2(NRZ)=24.576MHz). Modify the footprints as necessary for the TOSLINK module you purchase.
 
 If the HifiBerry case (https://www.hifiberry.com/shop/cases/hifiberry-universal-case-black-pi4/) is used. Pressing down on the top of the case resets the Nano and the WM8804, which might be useful if your Pi takes longer than 45 seconds to start and you don't modify the code (see the INO). There is diode protection for the 5V supply, so you should be able to program the Nano in-circuit (no warranty...) The board+Nano is designed to fit in the HifiBerry case with a little extra filing for the TOSLINK connectors on the bottom of the cutout. Height is tight, but it does fit using the standard height board headers specified.
+
+
+![](https://github.com/raptorlightning/I2SHat/blob/main/Pictures/Back2.jpg)
 
 ## Software Information
 
