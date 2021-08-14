@@ -1,3 +1,0 @@
-RCA Pad Swap
-Diode Pad Swap
-TOS/BNC Label Swap
