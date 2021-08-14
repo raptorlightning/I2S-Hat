@@ -1,0 +1,146 @@
+---
+# source: EQ setting for Sennheiser HD650 (Harman AE/OE) by oratory1990 from
+# 14.04.21:
+# https://www.dropbox.com/s/zr5tqw0qojom9uh/Sennheiser%20HD650.pdf?dl=0
+#
+# BiQuadDesigner for Free Biquad filters (used instead of shelving fitlers):
+# https://arachnoid.com/BiQuadDesigner/index.html
+
+devices:
+  samplerate: 44100
+  chunksize: 1024
+  target_level: 512
+  capture:
+    type: Alsa
+    channels: 2
+    device: "hw:CARD=GenericStereoAu,DEV=1"
+    format: S32LE
+  playback:
+    type: Alsa
+    channels: 2
+    device: "hw:CARD=GenericStereoAu,DEV=0"
+    format: S32LE
+
+filters:
+  hd650_oratory1990_gain:
+    type: Gain
+    parameters:
+      gain: -9.3
+      
+  hd650_oratory1990_band01:
+    type: Biquad
+    parameters:
+      type: Peaking
+      freq: 20
+      gain: 4.0
+      q: 1.1
+      
+  hd650_oratory1990_band02:
+    type: Biquad
+    parameters:
+      type: Peaking
+      freq: 97
+      gain: -2.4
+      q: 0.7
+            
+  hd650_oratory1990_band03:
+    type: Biquad
+    parameters:
+      type: Free
+      a1: -1.98194131
+      a2: 0.98210292
+      b0: 1.00336868
+      b1: -1.98186991
+      b2: 0.97880564
+
+  hd650_oratory1990_band04:
+    type: Biquad
+    parameters:
+      type: Peaking
+      freq: 215
+      gain: -1.8
+      q: 1.1  
+      
+  hd650_oratory1990_band05:
+    type: Biquad
+    parameters:
+      type: Peaking
+      freq: 1300
+      gain: -1.4
+      q: 1.5
+      
+  hd650_oratory1990_band06:
+    type: Biquad
+    parameters:
+      type: Free
+      a1: -1.56636207
+      a2: 0.64489706
+      b0: 1.36466009
+      b1: -2.22874455
+      b2: 0.94261945
+       
+  hd650_oratory1990_band07:
+    type: Biquad
+    parameters:
+      type: Peaking
+      freq: 2700
+      gain: -1.3
+      q: 3.0
+      
+  hd650_oratory1990_band08:
+    type: Biquad
+    parameters:
+      type: Peaking
+      freq: 3250
+      gain: -3.0
+      q: 2.7
+      
+  hd650_oratory1990_band09:
+    type: Biquad
+    parameters:
+      type: Peaking
+      freq: 5400
+      gain: -1.6
+      q: 3.0
+      
+  hd650_oratory1990_band10:
+    type: Biquad
+    parameters:
+      type: Free
+      a1: -0.10522743
+      a2: 0.17353097
+      b0: 0.84109230
+      b1: 0.08150596
+      b2: 0.14570527
+
+pipeline:
+  - type: Filter
+    channel: 0
+    names:
+      - hd650_oratory1990_gain
+      - hd650_oratory1990_band01
+      - hd650_oratory1990_band02
+      - hd650_oratory1990_band03
+      - hd650_oratory1990_band04
+      - hd650_oratory1990_band05
+      - hd650_oratory1990_band06
+      - hd650_oratory1990_band07
+      - hd650_oratory1990_band08
+      - hd650_oratory1990_band09
+      - hd650_oratory1990_band10
+  - type: Filter
+    channel: 1
+    names:
+      - hd650_oratory1990_gain
+      - hd650_oratory1990_band01
+      - hd650_oratory1990_band02
+      - hd650_oratory1990_band03
+      - hd650_oratory1990_band04
+      - hd650_oratory1990_band05
+      - hd650_oratory1990_band06
+      - hd650_oratory1990_band07
+      - hd650_oratory1990_band08
+      - hd650_oratory1990_band09
+      - hd650_oratory1990_band10
+   
+
