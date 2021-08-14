@@ -1,5 +1,5 @@
-# I2SHat
-An SPDIF RX and TX I2S Hat for the Raspberry Pi 2, 3, 4, etc. -- all versions that uses the same GPIO pinout for I2S.
+# I<sup>2</sup>SHat
+An SPDIF RX and TX I<sup>2</sup>S Hat for the Raspberry Pi 2, 3, 4, etc. -- all versions that uses the same GPIO pinout for I<sup>2</sup>S.
 
 ## Overview
 This project was developed as a replacement or substitue for the various DSP MCU-based processors available on the market. The goals of the project were:
@@ -33,10 +33,10 @@ If the HifiBerry case (https://www.hifiberry.com/shop/cases/hifiberry-universal-
 
 You will need to flash the project INO file to an Arduino Nano for control of the WM8804. The code and functionality could likely be accomplished with an ATTINY, but for the price and seeing as the footprint fits, a Nano is adequate. See the Arduino documentation for proper flashing of the INO file. Modify as you need for your purposes. 
 
-On the software side of things, the Raspberry Pi must be responsible for receiving I2S data, transmitting I2S data, and processing it in the middle. Using Ubuntu Server, with a DTS overlay for slave:
+On the software side of things, the Raspberry Pi must be responsible for receiving I<sup>2</sup>S data, transmitting I<sup>2</sup>S data, and processing it in the middle. Using Ubuntu Server, with a DTS overlay for slave:
 
 The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry Pi Model 4B. Modifications are posted below:
-* Install the required I2S Slave DTOverlay at https://github.com/AkiyukiOkayasu/RaspberryPi_I2S_Slave
+* Install the required I<sup>2</sup>S Slave DTOverlay at https://github.com/AkiyukiOkayasu/RaspberryPi_I2S_Slave
 * Setup CamillaDSP to run as a service on boot through the Python script in the repostiory. There are many different ways to accomplish this, but how it has been tested is through the following (sudo assumed):
   1. Setup WiFi and SSH. I won't illustrate that here as there are many guides available online for it.
   2. Copy the CamillaDSP executable (appropriate to your arch (for RPi4B and Ubuntu Server, it should be aarch64)), startdsp.py, and all of your frequency-specific YML files to a created /etc/camilladsp/ directory.
@@ -61,7 +61,7 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
       WantedBy=multi-user.target```
     * This ensures that the process (and hopefully subprocess of CamillaDSP) runs without any interruption due to other system services. The point of installing Ubuuntu server is that you will have very few, if any, processes running in the background. All CPU should be dedicated to the DSP.
   4. In the /etc/systemd/system/multi-user.target.wants directory create a symlink using "ln" camilladsp.service to /etc/systemd/system/camilladsp.service to create a link for the target.
-  5. Modify the following in the /boot/firmware directory to enable I2S and disable onboard audio (unless you need it).
+  5. Modify the following in the /boot/firmware directory to enable I<sup>2</sup>S and disable onboard audio (unless you need it).
     * /boot/firmware/syscfg.txt
       *  ```
           \# This file is intended to be modified by the pibootctl utility. User
