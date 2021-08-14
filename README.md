@@ -34,9 +34,9 @@ If the HifiBerry case (https://www.hifiberry.com/shop/cases/hifiberry-universal-
 
 ## Software Information
 
-You will need to flash the project INO file to an Arduino Nano for control of the WM8804. The code and functionality could likely be accomplished with an ATTINY, but for the price and seeing as the footprint fits, a Nano is adequate. See the Arduino documentation for proper flashing of the INO file. Modify as you need for your purposes. 
+You will need to flash the project INO file to an Arduino Nano for control of the WM8804 and sample rate detection. The code and functionality could likely be accomplished with an ATTINY, but for the price and seeing as the footprint fits, a Nano is adequate. See the Arduino documentation for proper flashing of the INO file. Modify as you need for your purposes. 
 
-On the software side of things, the Raspberry Pi must be responsible for receiving I<sup>2</sup>S data, transmitting I<sup>2</sup>S data, and processing it in the middle. Using Ubuntu Server, with a DTS overlay for slave:
+On the software side of things, the Raspberry Pi must be responsible for receiving I<sup>2</sup>S data, transmitting I<sup>2</sup>S data, and processing it in the middle. Using Ubuntu Server, with a DTS overlay for slave I<sup>2</sup>S operation:
 
 The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry Pi Model 4B. Modifications are posted below:
 * Install the required I<sup>2</sup>S Slave DTOverlay at https://github.com/AkiyukiOkayasu/RaspberryPi_I2S_Slave
