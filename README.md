@@ -7,7 +7,7 @@ This project was developed as a replacement or substitue for the various DSP MCU
 * Allow digital input and output without resampling or other pre/post-processing.
 * Utilize SPDIF from 44.1kHz-192kHz Stereo coaxial and/or optical.
 
-To make this possible, a combination of software and hardware is required. The Schematics and PCB to create the SPDIF hat are provided in KiCAD format in the "I2SHat" folder. Please modify the schematic and PCB as required for component availibility.
+To make this possible, a combination of software and hardware is required. The schematics and PCB to create the SPDIF hat are provided in KiCAD format in the "I2SHat" folder. Please modify the schematic and PCB as required for component availibility.
 
 ![](https://github.com/raptorlightning/I2SHat/blob/main/Pictures/Enclosed.jpg)
 
