@@ -61,7 +61,7 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
       IOSchedulingPriority=0
 
       [Install]
-      WantedBy=multi-user.target```
+      WantedBy=multi-user.target
     * This ensures that the process (and hopefully subprocess of CamillaDSP) runs without any interruption due to other system services. The point of installing Ubuuntu server is that you will have very few, if any, processes running in the background. All CPU should be dedicated to the DSP.
   4. In the /etc/systemd/system/multi-user.target.wants directory create a symlink using "ln" camilladsp.service to /etc/systemd/system/camilladsp.service to create a link for the target.
 * Modify the following in the /boot/firmware directory to enable I<sup>2</sup>S and disable onboard audio (unless you need it).
@@ -77,7 +77,7 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
           \#dtparam=i2c_arm=on
           \#dtparam=spi=on
           dtparam=i2s=on
-          cmdline=cmdline.txt ```
+          cmdline=cmdline.txt
           
 * Headers for YML files for CamillaDSP include the following since the required DTOverlay is installed (obviously samplerate is file-dependent):
     * ```---
@@ -96,7 +96,7 @@ The tested system consists of Ubuntu Server 20.04.2 LTS running on a Raspberry P
           type: Alsa
           channels: 2
           device: "hw:CARD=GenericStereoAu,DEV=0"
-          format: S32LE```
+          format: S32LE
     
 * Set up a Samba share for the /etc/camilladsp directory if you want to remotely access it for uploading new configurations.
 
