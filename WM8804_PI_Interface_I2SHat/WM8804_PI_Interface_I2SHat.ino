@@ -17,7 +17,7 @@ byte error;
 int SPDSTAT, INTSTAT;
 float frequency = 44100;
 unsigned long count = 0;
-byte toggle = 0;
+bool toggle = 0;
 int fs = 0;
 byte x = 0;
 volatile unsigned int T1capture;
@@ -25,7 +25,6 @@ volatile unsigned int lastT1capture;
 volatile unsigned int period;
 
 void setup() {
-  //PIN 5 (D5) used for Frequency Counter Input
   pinMode(5, OUTPUT);
   pinMode(6, OUTPUT);
   pinMode(7, OUTPUT);
@@ -223,10 +222,11 @@ void DeviceInit(int devaddr) {            // resets, initializes and powers up a
   WriteRegister(devaddr, 21, B01111001);
 
   // set PLL K and N factors
-  WriteRegister(devaddr, 6, 8);                  // set PLL_N to 8
-  WriteRegister(devaddr, 5, 0x0C);               // set PLL_K to 0C49BA (0C)
-  WriteRegister(devaddr, 4, 0x49);               // set PLL_K to 0C49BA (49)
-  WriteRegister(devaddr, 3, 0xBA);               // set PLL_K to 0C49BA (BA)
+  // this should be sample rate dependent, but makes hardly any difference
+  WriteRegister(devaddr, 6, 7);                  // set PLL_N to 7
+  WriteRegister(devaddr, 5, 0x36);                 // set PLL_K to 36FD21 (36)
+  WriteRegister(devaddr, 4, 0xFD);                 // set PLL_K to 36FD21 (FD)
+  WriteRegister(devaddr, 3, 0x21);                 // set PLL_K to 36FD21 (21)
 
   delay(50);
   // power up device
@@ -237,64 +237,49 @@ void DeviceInit(int devaddr) {            // resets, initializes and powers up a
 
 void PLLunlocked(int devaddr) {
   // PLL unlock service routine
-
   SpdifTxOff(wm8804);
   Serial.println("S/PDIF PLL unlocked");
+  //fs = 0;
+
   // switch PLL mode and coeff settings around trying to find lock
 
   while (bitRead(SPDSTAT, 6)) {
-    if (toggle == 1) {
-      PLLmodeDouble(wm8804);
-      SPDSTAT = ReadRegister(devaddr, 12);
-      ++x ;
-    }
-    else if (toggle == 2) {
+    if (toggle) {
       PLLmode192(wm8804);
       SPDSTAT = ReadRegister(devaddr, 12);
-      ++x ;      
+      ++x ;
     }
     else {
       PLLmodeNormal(wm8804);
       SPDSTAT = ReadRegister(devaddr, 12);
       ++x ;
     }
-    if (x >= 9) {                                     // test modes 3 times each                            
+    if (x >= 8) {                                     // test 192 and normal mode 4 times each                            
       x=0;                                            // before signalling retry and setting fs=0;
       fs=0;
       Serial.println("Retrying");
     }
-    Serial.println(toggle);
   } 
 }
 
-void PLLmodeNormal(int devaddr) {
-  Serial.println("trying normal mode...");
-  WriteRegister(devaddr, 6, 8);                  // set PLL_N to 8
-  WriteRegister(devaddr, 5, 0x0C);               // set PLL_K to 0C49BA (0C)
-  WriteRegister(devaddr, 4, 0x49);               // set PLL_K to 0C49BA (49)
-  WriteRegister(devaddr, 3, 0xBA);               // set PLL_K to 0C49BA (BA)
-  toggle = 1;
-  delay(1000);
-}
-
-void PLLmodeDouble(int devaddr) {
-  Serial.println("trying double mode...");
-  WriteRegister(devaddr, 6, 7);                  // set PLL_N to 7
-  WriteRegister(devaddr, 5, 0x21);               // set PLL_K to 36FD21 (36)
-  WriteRegister(devaddr, 4, 0xB0);               // set PLL_K to 36FD21 (FD)
-  WriteRegister(devaddr, 3, 0x89);               // set PLL_K to 36FD21 (21)
-  toggle = 2;
-  delay(1000);
-}
-
 void PLLmode192(int devaddr) {
-  Serial.println("trying 192kHz mode...");
-  WriteRegister(devaddr, 6, 7);                  // set PLL_N to 7
-  WriteRegister(devaddr, 5, 0x36);               // set PLL_K to 36FD21 (36)
-  WriteRegister(devaddr, 4, 0xFD);               // set PLL_K to 36FD21 (FD)
-  WriteRegister(devaddr, 3, 0x21);               // set PLL_K to 36FD21 (21)
+  //Serial.println("trying 192 kHz mode...");
+  WriteRegister(devaddr, 6, 8);                  // set PLL_N to 8
+  WriteRegister(devaddr, 5, 12);                 // set PLL_K to 0C49BA (0C)
+  WriteRegister(devaddr, 4, 73);                 // set PLL_K to 0C49BA (49)
+  WriteRegister(devaddr, 3, 186);                // set PLL_K to 0C49BA (BA)
   toggle = 0;
-  delay(1000);
+  delay(200);
+}
+
+void PLLmodeNormal(int devaddr) {
+  //Serial.println("trying normal mode...");
+  WriteRegister(devaddr, 6, 7);                  // set PLL_N to 7
+  WriteRegister(devaddr, 5, 54);                 // set PLL_K to 36FD21 (36)
+  WriteRegister(devaddr, 4, 253);                // set PLL_K to 36FD21 (FD)
+  WriteRegister(devaddr, 3, 33);                 // set PLL_K to 36FD21 (21)
+  toggle = 1;
+  delay(200);
 }
 
 ISR (TIMER1_CAPT_vect)
